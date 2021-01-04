@@ -50,7 +50,8 @@ Route::group(['middleware' => ['auth','user']], function () {
     Route::post('/recharge', 'withdrawController@rechargeStore'); 
     
 });
-
+Route::get('login/facebook', 'Auth\LoginController@redirectToProvider')->name('login.facebook');
+Route::get('/login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::get('/logout', 'logOutController@logout')->name('logout.custom');   
 
