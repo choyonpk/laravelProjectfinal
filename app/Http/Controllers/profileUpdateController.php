@@ -15,6 +15,11 @@ class profileUpdateController extends Controller
     }
     public function store(Request $req)
     {
+        $validated = $req->validate([
+            'name' => 'required|max:255',
+            'email' => 'required',
+            'phone'=>'required'
+        ]);
         $user = user::find(Auth::user()->id);
         $user->name = $req->name;
         $user->email = $req->email;

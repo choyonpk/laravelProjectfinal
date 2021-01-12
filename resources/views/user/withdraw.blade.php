@@ -6,24 +6,65 @@ WITHDRAW
 WITHDRAW
 @endsection
 @section('content')
-<body>  
-<form method="POST">
-      @csrf
-    <table>
-        <tr>
-            <td>AGENT USERNAME</td>
-            <td><input type="text" name="to"></td>
-        </tr>
-        <tr>
-            <td>Amount</td>
-            <td><input type="text" name="amount"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" name="" value="Send"></td>
-        </tr>
-    </table>
-  </form>
- 
-  </body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+</head>
+<body>
+  
+    <div class="container">
+  
+        <form >
+  
+            <div class="form-group">
+                <label>Agent ID:</label>
+                <input type="text" name="Aname" class="form-control" placeholder="Name" required="">
+            </div>
+  
+            <div class="form-group">
+                <label>Amount:</label>
+                <input type="text" name="amount" class="form-control" placeholder="Amount" required="">
+            </div>
+
+   
+            <div class="form-group">
+                <button class="btn btn-success btn-submit">WITHDRAW</button>
+            </div>
+  
+        </form>
+    </div>
+  
+</body>
+<script type="text/javascript">
+   
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+   
+    $(".btn-submit").click(function(e){
+  
+  e.preventDefault();
+
+  var name = $("input[name=Aname]").val();
+  var amount = $("input[name=amount]").val();
+
+  $.ajax({
+     type:'POST',
+     url:"{{ route('withdraw') }}",
+     data:{name:name, amount:amount},
+     success:function(response){
+        alert(response.success);
+     }
+  });
+
+});
+	
+</script>
 @endsection

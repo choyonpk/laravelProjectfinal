@@ -48,6 +48,9 @@ Route::group(['middleware' => ['auth','user']], function () {
 
     Route::get('/recharge', 'withdrawController@rechargeIndex')->name('recharge'); 
     Route::post('/recharge', 'withdrawController@rechargeStore'); 
+
+    
+
     
 });
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider')->name('login.facebook');
